@@ -17,7 +17,7 @@
     <div class="gov-card-grid">
 
         <a href="/archive-main/pages/annual-reports.php" class="gov-card">
-            <div class="gov-card-icon">AR</div>
+            <div class="gov-card-icon">📅</div>
 
             <div>
                 <h3>Annual Reports</h3>
@@ -27,7 +27,7 @@
         </a>
 
         <a href="/archive-main/pages/financial-reports.php" class="gov-card">
-            <div class="gov-card-icon">FR</div>
+            <div class="gov-card-icon">💰</div>
 
             <div>
                 <h3>Financial Reports</h3>
@@ -37,7 +37,7 @@
         </a>
 
         <a href="/archive-main/pages/project-reports.php" class="gov-card">
-            <div class="gov-card-icon">PR</div>
+            <div class="gov-card-icon">📁</div>
 
             <div>
                 <h3>Project Reports</h3>

@@ -1,15 +1,15 @@
- <?php include 'includes/header.php'; ?>
+<?php include 'includes/header.php'; ?>
 
 <section class="coming-soon">
 
-  <h1>Coming Soon</h1>
+  <h1>🚧 Coming Soon 🚧</h1>
 
   <p>
-    sorry we are working on it wait pls.
+    Sorry we are working on it wait pls.
   </p>
 
-  <a href="index.php" class="btn">
-    Back to Home
+  <a href="/archive-main/index.php" class="btn">
+    🏚️ Back to Home
   </a>
 
 </section>

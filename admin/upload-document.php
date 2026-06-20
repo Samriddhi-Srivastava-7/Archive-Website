@@ -2,12 +2,11 @@
 
 require_once "../includes/auth-check.php";
 require_once "../config/db.php";
+require_once "../config/storage.php";
+require_once "../includes/csrf.php";
+require_once "../includes/validation.php";
 
 $message = "";
-
-/* =========================
-   CERTIFICATE TYPE CODE
-========================= */
 
 function getCertificateTypeCode($certificate_type) {
 
@@ -27,10 +26,6 @@ function getCertificateTypeCode($certificate_type) {
 
     return "CRT";
 }
-
-/* =========================
-   GENERATE DECODABLE UID
-========================= */
 
 function generateCertificateUID($conn, $certificate_type, $issue_date) {
 
@@ -55,80 +50,59 @@ function generateCertificateUID($conn, $certificate_type, $issue_date) {
     return $prefix . $sequence;
 }
 
-/* =========================
-   FORM SUBMIT
-========================= */
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $student_name = $_POST["student_name"];
+    if (
+        !isset($_POST["csrf_token"]) ||
+        !verifyCSRFToken($_POST["csrf_token"])
+    ) {
+        die("Invalid CSRF Token");
+    }
 
-    $certificate_type = $_POST["certificate_type"];
+    $errors = [];
 
-    $course = $_POST["course"];
+    validateCertificateForm($_POST, $errors);
+    validateCertificatePDF($_FILES["certificate_pdf"], $errors);
 
-    $issue_date = $_POST["issue_date"];
+    if (!empty($errors)) {
 
-    $status = "Draft";
-
-    /* =========================
-       GENERATE UID
-    ========================= */
-
-    $certificate_uid = generateCertificateUID(
-        $conn,
-        $certificate_type,
-        $issue_date
-    );
-
-    /* =========================
-       FILE DETAILS
-    ========================= */
-
-    $file_name = $_FILES["certificate_pdf"]["name"];
-
-    $file_tmp = $_FILES["certificate_pdf"]["tmp_name"];
-
-    $file_size = $_FILES["certificate_pdf"]["size"];
-
-    $upload_dir = "../uploads/certificates/";
-
-    $new_file_name = $certificate_uid . "-" . basename($file_name);
-
-    $file_path = $upload_dir . $new_file_name;
-
-    $file_extension = strtolower(
-        pathinfo($file_name, PATHINFO_EXTENSION)
-    );
-
-    /* =========================
-       VALIDATIONS
-    ========================= */
-
-    if ($file_extension !== "pdf") {
-
-        $message = "Only PDF files are allowed.";
-
-    } elseif ($file_size > 5 * 1024 * 1024) {
-
-        $message = "File size should be less than 5MB.";
+        $message = implode("<br>", $errors);
 
     } else {
 
-        /* =========================
-           UPLOAD FILE
-        ========================= */
+        $student_name = cleanInput($_POST["student_name"]);
+        $certificate_type = cleanInput($_POST["certificate_type"]);
+        $course = cleanInput($_POST["course"]);
+        $issue_date = cleanInput($_POST["issue_date"]);
+        $status = "Draft";
 
-        if (move_uploaded_file($file_tmp, $file_path)) {
+        $certificate_uid = generateCertificateUID(
+            $conn,
+            $certificate_type,
+            $issue_date
+        );
 
-            $db_file_path = "uploads/certificates/" . $new_file_name;
+        $file_name = $_FILES["certificate_pdf"]["name"];
+        $file_tmp = $_FILES["certificate_pdf"]["tmp_name"];
 
-            /* =========================
-               INSERT DATABASE
-            ========================= */
+        $safe_original_name = preg_replace(
+            "/[^a-zA-Z0-9._-]/",
+            "-",
+            basename($file_name)
+        );
+
+        $new_file_name = $certificate_uid . "-" . $safe_original_name;
+
+        $uploadedFile = uploadCertificateFile(
+            $file_tmp,
+            $new_file_name
+        );
+
+        if ($uploadedFile) {
+
+            $db_file_path = $uploadedFile["file_path"];
 
             $sql = "INSERT INTO certificates
-
             (
                 certificate_uid,
                 student_name,
@@ -139,9 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 file_name,
                 file_path
             )
-
             VALUES
-
             (
                 '$certificate_uid',
                 '$student_name',
@@ -193,8 +165,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <div class="admin-layout">
 
-    <!-- SIDEBAR -->
-
     <aside class="sidebar" id="sidebar">
 
         <div class="brand">
@@ -238,8 +208,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     </aside>
 
-    <!-- MAIN -->
-
     <main class="admin-main">
 
         <section class="dashboard-heading">
@@ -279,6 +247,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     enctype="multipart/form-data"
                     class="auth-form"
                 >
+
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="<?php echo generateCSRFToken(); ?>"
+                    >
 
                     <label>Student Name</label>
 

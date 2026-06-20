@@ -1,39 +1,63 @@
 <?php
 
 require_once "../includes/desktop-check.php";
+require_once "../config/env.php";
 require_once "../config/mail.php";
-
-session_start();
+require_once "../includes/csrf.php";
+require_once "../includes/validation.php";
 
 $error = "";
 
-$admin_username = "admin";
-$admin_password = "admin123";
-$admin_email = "ichchhit235@gmail.com";
+$admin_username = $_ENV["ADMIN_USERNAME"] ?? "";
+$admin_password = $_ENV["ADMIN_PASSWORD"] ?? "";
+$admin_email = $_ENV["ADMIN_EMAIL"] ?? "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $username = trim($_POST["username"]);
-    $password = trim($_POST["password"]);
+    if (
+        !isset($_POST["csrf_token"]) ||
+        !verifyCSRFToken($_POST["csrf_token"])
+    ) {
+        die("Invalid CSRF Token");
+    }
 
-    if ($username === $admin_username && $password === $admin_password) {
+    $errors = [];
 
-        $otp = rand(100000, 999999);
+    validateRequired($_POST["username"] ?? "", "Username", $errors);
+    validateRequired($_POST["password"] ?? "", "Password", $errors);
 
-        $_SESSION["pending_admin_username"] = $username;
-        $_SESSION["pending_admin_email"] = $admin_email;
-        $_SESSION["admin_otp"] = $otp;
-        $_SESSION["otp_created_at"] = time();
+    validateMaxLength($_POST["username"] ?? "", "Username", 50, $errors);
+    validateMaxLength($_POST["password"] ?? "", "Password", 100, $errors);
 
-        if (sendOTP($admin_email, $otp)) {
-            header("Location: verify-otp.php");
-            exit();
-        } else {
-            $error = "OTP email could not be sent. Please check mail configuration.";
-        }
+    if (!empty($errors)) {
+
+        $error = implode("<br>", $errors);
 
     } else {
-        $error = "Invalid username or password.";
+
+        $username = cleanInput($_POST["username"]);
+        $password = cleanInput($_POST["password"]);
+
+        if ($username === $admin_username && $password === $admin_password) {
+
+            $otp = rand(100000, 999999);
+
+            $_SESSION["pending_admin_username"] = $username;
+            $_SESSION["pending_admin_email"] = $admin_email;
+            $_SESSION["admin_otp"] = $otp;
+            $_SESSION["otp_created_at"] = time();
+
+            if (sendOTP($admin_email, $otp)) {
+                header("Location: verify-otp.php");
+                exit();
+            } else {
+                $error = "OTP email could not be sent. Please check mail configuration.";
+            }
+
+        } else {
+            $error = "Invalid username or password.";
+        }
+
     }
 }
 
@@ -52,8 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <div class="auth-card">
 
-    
-
         <h1>Admin Login</h1>
         <p class="auth-subtitle">Enter credentials</p>
 
@@ -62,6 +84,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <?php endif; ?>
 
         <form method="POST" class="auth-form">
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="<?php echo generateCSRFToken(); ?>"
+            >
 
             <label>Username</label>
             <input type="text" name="username" placeholder="Enter username" required>

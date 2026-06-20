@@ -1,4 +1,4 @@
- <section class="section">
+<section class="section">
 
     <div class="section-header">
 
@@ -21,7 +21,7 @@
         <a href="/archive-main/coming-soon.php" class="gov-card">
 
             <div class="gov-card-icon">
-                PR
+                📰
             </div>
 
             <div>
@@ -45,7 +45,7 @@
         <a href="/archive-main/coming-soon.php" class="gov-card">
 
             <div class="gov-card-icon">
-                MN
+                📢
             </div>
 
             <div>
@@ -69,7 +69,7 @@
         <a href="/archive-main/coming-soon.php" class="gov-card">
 
             <div class="gov-card-icon">
-                UP
+                🔔
             </div>
 
             <div>

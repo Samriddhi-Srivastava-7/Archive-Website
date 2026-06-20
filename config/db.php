@@ -1,17 +1,13 @@
 <?php
 
-$configFile = __DIR__ . "/db.json";
+require_once __DIR__ . "/env.php";
 
-$configData = file_get_contents($configFile);
+$host = $_ENV["DB_HOST"] ?? "";
+$user = $_ENV["DB_USER"] ?? "";
+$password = $_ENV["DB_PASS"] ?? "";
+$database = $_ENV["DB_NAME"] ?? "";
 
-$dbConfig = json_decode($configData, true);
-
-$host = $dbConfig["host"];
-$user = $dbConfig["user"];
-$password = $dbConfig["password"];
-$database = $dbConfig["database"];
-
-$conn = mysqli_connect($host, $user, $password, $database);
+$conn = mysqli_connect($host, $user, $password, $database, 3307);
 
 if (!$conn) {
     die("Database connection failed: " . mysqli_connect_error());

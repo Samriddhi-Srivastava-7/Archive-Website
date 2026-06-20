@@ -2,6 +2,7 @@
 
 require_once "../includes/auth-check.php";
 require_once "../config/db.php";
+require_once "../includes/csrf.php";
 
 $message = "";
 
@@ -23,6 +24,13 @@ if (mysqli_num_rows($selectQuery) == 0) {
 $certificate = mysqli_fetch_assoc($selectQuery);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    if (
+        !isset($_POST["csrf_token"]) ||
+        !verifyCSRFToken($_POST["csrf_token"])
+    ) {
+        die("Invalid CSRF Token");
+    }
 
     $student_name = $_POST["student_name"];
     $certificate_type = $_POST["certificate_type"];
@@ -72,6 +80,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php endif; ?>
 
             <form method="POST" class="auth-form">
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="<?php echo generateCSRFToken(); ?>"
+                >
 
                 <label>Certificate ID</label>
                 <input type="text" value="<?php echo $certificate["certificate_uid"]; ?>" disabled>

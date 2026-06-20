@@ -3,7 +3,7 @@
 <section class="hero">
 
   <h1>
-    Annual Reports  
+    📊 Annual Reports  
   </h1>
 
   <p>
@@ -30,7 +30,7 @@
       <br>
 
       <a href="#" class="btn">
-        View PDF
+        📄 View PDF
       </a>
 
     </div>
@@ -48,7 +48,7 @@
       <br>
 
       <a href="#" class="btn">
-        View PDF
+        📄 View PDF
       </a>
 
     </div>
@@ -66,7 +66,7 @@
       <br>
 
       <a href="#" class="btn">
-        View PDF
+        📄 View PDF
       </a>
 
     </div>

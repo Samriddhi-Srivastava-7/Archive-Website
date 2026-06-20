@@ -19,7 +19,7 @@
     <div class="gov-card-grid">
 
         <a href="/archive-main/pages/internship-certificates.php" class="gov-card">
-            <div class="gov-card-icon">IC</div>
+            <div class="gov-card-icon">🎓</div>
 
             <div>
                 <h3>Internship Certificates</h3>
@@ -29,7 +29,7 @@
         </a>
 
         <a href="/archive-main/pages/experience-certificates.php" class="gov-card">
-            <div class="gov-card-icon">EC</div>
+            <div class="gov-card-icon">📜</div>
 
             <div>
                 <h3>Experience Certificates</h3>
@@ -39,7 +39,7 @@
         </a>
 
         <a href="/archive-main/pages/verify-certificate.php" class="gov-card">
-            <div class="gov-card-icon">VC</div>
+            <div class="gov-card-icon">✅</div>
 
             <div>
                 <h3>Verify Certificate</h3>

@@ -9,8 +9,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $certificate_uid = trim($_POST["certificate_uid"]);
 
-     $sql = "SELECT * FROM certificates WHERE certificate_uid = '$certificate_uid' AND status = 'Published' LIMIT 1";
-    $query = mysqli_query($conn, $sql);
+    $sql = "SELECT * FROM certificates WHERE certificate_uid = ? AND status = 'Published' LIMIT 1";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $certificate_uid);
+    mysqli_stmt_execute($stmt);
+    $query = mysqli_stmt_get_result($stmt);
 
     if ($query && mysqli_num_rows($query) > 0) {
         $result = mysqli_fetch_assoc($query);
@@ -43,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 >
             </div>
 
-            <button type="submit">Verify Certificate</button>
+            <button type="submit">🔍 Verify Certificate</button>
         </form>
 
         <p class="verify-note">
@@ -65,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <?php if (!empty($result["file_path"])): ?>
                     <a href="../<?php echo htmlspecialchars($result["file_path"]); ?>" target="_blank">
-                        View Certificate PDF
+                        📄 View Certificate PDF
                     </a>
                 <?php endif; ?>
             </div>

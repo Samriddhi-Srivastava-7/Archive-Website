@@ -1,6 +1,8 @@
 <?php
+
 require_once "../includes/auth-check.php";
 require_once "../config/db.php";
+require_once "../includes/csrf.php";
 
 $totalQuery = mysqli_query($conn, "SELECT COUNT(*) AS total FROM certificates");
 $totalCertificates = mysqli_fetch_assoc($totalQuery)["total"];
@@ -15,6 +17,7 @@ $revokedQuery = mysqli_query($conn, "SELECT COUNT(*) AS total FROM certificates 
 $revokedCertificates = mysqli_fetch_assoc($revokedQuery)["total"];
 
 $recentQuery = mysqli_query($conn, "SELECT * FROM certificates ORDER BY created_at DESC LIMIT 10");
+
 ?>
 
 <!DOCTYPE html>
@@ -45,61 +48,61 @@ $recentQuery = mysqli_query($conn, "SELECT * FROM certificates ORDER BY created_
 
         <nav class="sidebar-nav">
             <a href="dashboard.php" class="nav-link active">
-                <span class="nav-icon">▣</span>
+                <span class="nav-icon">📊</span>
                 <span class="nav-text">Dashboard</span>
             </a>
 
             <a href="upload-document.php" class="nav-link">
-                <span class="nav-icon">↑</span>
+                <span class="nav-icon">📤</span>
                 <span class="nav-text">Upload Certificate</span>
             </a>
 
             <a href="manage-documents.php" class="nav-link">
-                <span class="nav-icon">☷</span>
+                <span class="nav-icon">📋</span>
                 <span class="nav-text">Manage Certificates</span>
             </a>
 
             <a href="#" class="nav-link">
-                <span class="nav-icon">◻</span>
+                <span class="nav-icon">📝</span>
                 <span class="nav-text">Draft Certificates</span>
             </a>
 
             <a href="#" class="nav-link">
-                <span class="nav-icon">✓</span>
+                <span class="nav-icon">📜</span>
                 <span class="nav-text">Published Certificates</span>
             </a>
 
             <a href="#" class="nav-link">
-                <span class="nav-icon">×</span>
+                <span class="nav-icon">🚫</span>
                 <span class="nav-text">Revoked Certificates</span>
             </a>
 
             <div class="nav-section-title">System</div>
 
             <a href="#" class="nav-link">
-                <span class="nav-icon">●</span>
+                <span class="nav-icon">🔔</span>
                 <span class="nav-text">Notifications</span>
             </a>
 
             <a href="#" class="nav-link">
-                <span class="nav-icon">👥</span>
+                <span class="nav-icon">🧑‍🎓</span>
                 <span class="nav-text">Interns</span>
             </a>
 
             <a href="#" class="nav-link">
-                <span class="nav-icon">⚙</span>
+                <span class="nav-icon">⚙️</span>
                 <span class="nav-text">Settings</span>
             </a>
 
             <a href="#" class="nav-link">
-                <span class="nav-icon">≡</span>
+                <span class="nav-icon">📈</span>
                 <span class="nav-text">Activity Logs</span>
             </a>
 
             <div class="nav-section-title">Account</div>
 
             <a href="logout.php" class="nav-link logout-link">
-                <span class="nav-icon">↳</span>
+                <span class="nav-icon">🚪</span>
                 <span class="nav-text">Logout</span>
             </a>
         </nav>
@@ -198,6 +201,7 @@ $recentQuery = mysqli_query($conn, "SELECT * FROM certificates ORDER BY created_
 
                                 <td>
                                     <div class="action-group">
+
                                         <a href="edit-certificate.php?id=<?php echo $row['id']; ?>" class="action-btn edit">
                                             Edit
                                         </a>
@@ -213,6 +217,30 @@ $recentQuery = mysqli_query($conn, "SELECT * FROM certificates ORDER BY created_
                                                 Revoke
                                             </a>
                                         <?php endif; ?>
+
+                                        <form
+                                            method="POST"
+                                            action="delete-certificate.php"
+                                            style="display:inline;"
+                                            onsubmit="return confirm('Are you sure you want to delete this certificate?');"
+                                        >
+                                            <input
+                                                type="hidden"
+                                                name="csrf_token"
+                                                value="<?php echo generateCSRFToken(); ?>"
+                                            >
+
+                                            <input
+                                                type="hidden"
+                                                name="id"
+                                                value="<?php echo $row['id']; ?>"
+                                            >
+
+                                            <button type="submit" class="action-btn revoke">
+                                                Delete
+                                            </button>
+                                        </form>
+
                                     </div>
                                 </td>
                             </tr>

@@ -58,11 +58,11 @@
     <nav class="nav">
 
         <a href="/archive-main/index.php">
-            Home
+            <span class="nav-icon-glyph">🏚️</span> Home
         </a>
 
         <a href="/archive-main/pages/press-releases.php">
-            Press Release
+            <span class="nav-icon-glyph">📰</span> Press Release
         </a>
 
         <!-- REPORTS -->
@@ -70,26 +70,26 @@
         <div class="dropdown">
 
             <a href="#">
-                Reports
+                <span class="nav-icon-glyph">📊</span> Reports
             </a>
 
             <ul class="dropdown-menu">
 
                 <li>
                     <a href="/archive-main/pages/annual-reports.php">
-                        Annual Reports
+                        <span class="dropdown-icon-glyph">📅</span> Annual Reports
                     </a>
                 </li>
 
                 <li>
                     <a href="/archive-main/pages/financial-reports.php">
-                        Financial Reports
+                        <span class="dropdown-icon-glyph">💰</span> Financial Reports
                     </a>
                 </li>
 
                 <li>
                     <a href="/archive-main/pages/project-reports.php">
-                        Project Reports
+                        <span class="dropdown-icon-glyph">📁</span> Project Reports
                     </a>
                 </li>
 
@@ -102,26 +102,26 @@
         <div class="dropdown">
 
             <a href="#">
-                Certificates
+                <span class="nav-icon-glyph">🎓</span> Certificates
             </a>
 
             <ul class="dropdown-menu">
 
                 <li>
                     <a href="/archive-main/pages/internship-certificates.php">
-                        Internship Certificates
+                        <span class="dropdown-icon-glyph">🎓</span> Internship Certificates
                     </a>
                 </li>
 
                 <li>
                     <a href="/archive-main/pages/experience-certificates.php">
-                        Experience Certificates
+                        <span class="dropdown-icon-glyph">📜</span> Experience Certificates
                     </a>
                 </li>
 
                 <li>
                     <a href="/archive-main/pages/verify-certificate.php">
-                        Verify Certificate
+                        <span class="dropdown-icon-glyph">✅</span> Verify Certificate
                     </a>
                 </li>
 
