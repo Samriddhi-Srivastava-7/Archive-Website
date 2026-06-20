@@ -8,7 +8,7 @@
 
     <title>Archive | Rigel Foundation</title>
 
-    <link rel="icon" href="/archive-main/assets/images/logo-square.png" type="image/png">
+    <link rel="icon" href="/archive-site/assets/images/logo-square.png" type="image/png">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Your Existing CSS -->
-    <link rel="stylesheet" href="/archive-main/assets/css/design.css">
+    <link rel="stylesheet" href="/archive-site/assets/css/design.css">
 
 </head>
 
@@ -32,7 +32,7 @@
         <a href="/archive-main/index.php" class="logo-container">
 
             <img
-                src="/archive-main/assets/images/logo-square.png"
+                src="/archive-site/assets/images/logo-square.png"
                 alt="Rigel Foundation Logo"
                 class="site-logo"
             >

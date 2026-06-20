@@ -11,7 +11,7 @@
         </p>
 
         <div class="banner-buttons">
-            <a href="/archive-main/pages/verify-certificate.php">
+            <a href="/archive-site/pages/verify-certificate.php">
                 ✅ Verify Certificate
             </a>
 

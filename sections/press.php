@@ -18,7 +18,7 @@
 
     <div class="gov-card-grid">
 
-        <a href="/archive-main/coming-soon.php" class="gov-card">
+        <a href="/archive-site/coming-soon.php" class="gov-card">
 
             <div class="gov-card-icon">
                 📰
@@ -42,7 +42,7 @@
 
         </a>
 
-        <a href="/archive-main/coming-soon.php" class="gov-card">
+        <a href="/archive-site/coming-soon.php" class="gov-card">
 
             <div class="gov-card-icon">
                 📢
@@ -66,7 +66,7 @@
 
         </a>
 
-        <a href="/archive-main/coming-soon.php" class="gov-card">
+        <a href="/archive-site/coming-soon.php" class="gov-card">
 
             <div class="gov-card-icon">
                 🔔

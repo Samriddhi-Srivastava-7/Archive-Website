@@ -16,7 +16,7 @@
 
     <div class="gov-card-grid">
 
-        <a href="/archive-main/pages/annual-reports.php" class="gov-card">
+        <a href="/archive-site/pages/annual-reports.php" class="gov-card">
             <div class="gov-card-icon">📅</div>
 
             <div>
@@ -26,7 +26,7 @@
             </div>
         </a>
 
-        <a href="/archive-main/pages/financial-reports.php" class="gov-card">
+        <a href="/archive-site/pages/financial-reports.php" class="gov-card">
             <div class="gov-card-icon">💰</div>
 
             <div>
@@ -36,7 +36,7 @@
             </div>
         </a>
 
-        <a href="/archive-main/pages/project-reports.php" class="gov-card">
+        <a href="/archive-site/pages/project-reports.php" class="gov-card">
             <div class="gov-card-icon">📁</div>
 
             <div>

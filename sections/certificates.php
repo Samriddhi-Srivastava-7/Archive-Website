@@ -18,7 +18,7 @@
 
     <div class="gov-card-grid">
 
-        <a href="/archive-main/pages/internship-certificates.php" class="gov-card">
+        <a href="/archive-site/pages/internship-certificates.php" class="gov-card">
             <div class="gov-card-icon">🎓</div>
 
             <div>
@@ -28,7 +28,7 @@
             </div>
         </a>
 
-        <a href="/archive-main/pages/experience-certificates.php" class="gov-card">
+        <a href="/archive-site/pages/experience-certificates.php" class="gov-card">
             <div class="gov-card-icon">📜</div>
 
             <div>
@@ -38,7 +38,7 @@
             </div>
         </a>
 
-        <a href="/archive-main/pages/verify-certificate.php" class="gov-card">
+        <a href="/archive-site/pages/verify-certificate.php" class="gov-card">
             <div class="gov-card-icon">✅</div>
 
             <div>

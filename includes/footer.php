@@ -8,10 +8,10 @@
         </div>
 
         <div class="footer-links">
-            <a href="/archive-main/index.php">Home</a>
-            <a href="/archive-main/pages/verify-certificate.php">Verify Certificate</a>
-            <a href="/archive-main/pages/annual-reports.php">Reports</a>
-            <a href="/archive-main/pages/press-releases.php">Press Releases</a>
+            <a href="/archive-site/index.php">Home</a>
+            <a href="/archive-site/pages/verify-certificate.php">Verify Certificate</a>
+            <a href="/archive-site/pages/annual-reports.php">Reports</a>
+            <a href="/archive-site/pages/press-releases.php">Press Releases</a>
         </div>
 
     </div>
@@ -22,7 +22,7 @@
 
 </footer>
 
-<script src="/archive-main/assets/js/main.js"></script>
+<script src="/archive-site/assets/js/main.js"></script>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
